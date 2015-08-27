@@ -1,0 +1,46 @@
+body{text-align: center;}
+section{border: 1px; border-bottom-color: black; border-bottom-style:  groove;}
+nav{font-size: 2em; border: 1px; border-color: black; border-top-style: groove;}
+button{margin-top: 0.1rem;}
+input{font-size: 1em; }
+img{}
+
+
+@media screen and (max-height: 1200px)
+{
+    header{font-size: 3.8rem;}
+    section{font-size: 3rem;}
+    footer{}    
+    button{font-size: 1.5em;}
+    nav{font-size: 4em;}
+   
+}
+
+
+@media screen and (max-height: 800px)
+{
+    header{font-size: 2.3rem;}
+    section{font-size: 3rem;}
+    footer{}    
+    button{font-size: 1.2em;}
+    nav{font-size: 3em;}
+    
+}
+
+@media screen and (max-height: 600px)
+{
+    header{font-size: 2rem;}
+    section{font-size: 2rem;}
+    footer{}    
+    button{font-size: 0.8em;}
+    nav{font-size: 3em;}
+}
+
+@media screen and (max-height: 350px)
+{
+    header{font-size: 3rem;}
+    section{font-size: 3rem;}
+    nav{font-size: 3em;}
+    footer{}    
+    button{font-size: 0.4em;}   
+}
