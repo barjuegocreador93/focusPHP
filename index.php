@@ -38,9 +38,13 @@ and open the template in the editor.
         </section>
         <?php 
         include("APP/app.php");
-        $a=new app();
-        $a->conectdatabase();
-        
+        $a=new app(5,'Registre','root','localhost','root','Apps-User');
+        $a->addinput(0, 'text', 'nombre');
+        $a->addinput(1, 'text', 'apellido');
+        $a->addinput(2, 'password', 'pass');
+        $a->addinput(3, 'password', 'pass2');
+        $a->addinput(4, 'email', 'email');
+        $a->putFormOn('body');
         ?>
     </body>
     <script>
