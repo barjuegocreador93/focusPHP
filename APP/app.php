@@ -45,7 +45,7 @@ class app {
             $this->input_val[$numInpunts];
             $this->numForms=$numInpunts;
        
-        if($tipo_input=="Registre"||$tipo_input=="Ingresar"){
+        if($tipo_input=="Registrar"||$tipo_input=="Ingresar"){
            $this->type = $tipo_input;
         }
         }
@@ -57,19 +57,20 @@ class app {
             $this->type = "none";
         }
         $this->conectdatabase($server, $user, $pass, $db);
-        $this->istrylogin=$_GET['wastrylog'];
-        $this->istryingregis=$_GET['wastryreg'];
-        if($this->istrylogin=="true")
+        $this->istrylogin=$_POST['wastrylog'];
+        $this->istryingregis=$_POST['wastryreg'];
+        if($this->istrylogin=="true" && $this->type=='Ingresar')
         {
             $this->islogin=$this->ingresar();
-            if($this->islogin=="false" && $this->type=='Ingresar')
+            if($this->islogin=="false")
             {
                 echo "Intentalo de nuevo! Su usauario no aparece en nuestro sitio";
             }
         }
-        else  $this->islogin="false";
+        else  {$this->islogin="false";}
         
-        if($this->istryingregis=="true")
+        
+        if($this->istryingregis=="true" && $this->type=='Registrar')
         {
             $this->registrar();
         }
@@ -81,10 +82,11 @@ class app {
         $this->input_val[$index_input]=$val;
     }  
     
-    public function putFormOn($html,$php) {
+    public function putFormOn($html,$php, $bool) {
+        $this->islogin=$bool;
         if($this->islogin=="false"){
         $j="<script>$(document).ready(function(){\n";        
-        $j=$j."$('$html').append('<form action='+'$php'+' method='+'get'+'></form>');\n";
+        $j=$j."$('$html').append('<form action='+'$php'+' method='+'post'+'></form>');\n";
         for($i=0;$i< $this->numForms;$i++){
             $a=$this->input_type[$i]; $b=$this->input_name[$i];  $f=$this->input_val[$i];
             $c="<input type='+'$a'+' name='+'$b'+' placeholder='+'$f'+' >";
@@ -92,7 +94,7 @@ class app {
         }
         $m="'<input type='+'submit'+'>'";
         $j=$j. "$('".$html. " form').append(" . $m . ");\n";
-        if($this->type=="Registre")
+        if($this->type=="Registrar")
         {
             $j=$j."$('$html form').append('<input type='+'text'+' name='+'wastryreg'+' style='+'display:none;'+' value='+'true'+'>');\n";
         }
@@ -105,10 +107,49 @@ class app {
     }
     
     public function registrar(){
-        return 0;
+        $name=$_POST['nombre'];
+        $lname=$_POST['apellido'];
+        $pass=$_POST['pass'];
+        $pass2=$_POST['pass2'];
+        $email=$_POST['email'];
+        $query="SELECT * FROM User WHERE email='$email'";
+        $r=mysql_query($query);
+        $a=  mysql_fetch_array($r);
+        if($a['email']!=$email&&$email!="")
+        {
+            if($pass==$pass2&&$pass!="")
+            {
+                $insert="insert into User values('$name','$lname','$pass','$email')";
+                mysql_query($insert);
+                return "true";
+            }
+            echo "Error al registrar usuario!";
+            return "false";
+        }          
+        echo "El usuario ya existe";      
+        return "false";       
     }
     public function ingresar(){
-        return 0;
+           $pass=$_POST['pass']; 
+           $email=$_POST['email'];
+           $query="SELECT * FROM User WHERE email='$email'";
+           $r=mysql_query($query);
+           $a=mysql_fetch_array($r);
+           if($a['email']==$email&&$email!=""){
+           if($a['Password'] == $pass)
+           {
+               return "true";
+           }           
+           return "false";
+           
+           }
+           echo "Contraseña Invalida o Usuario invalido";           
+        return "false";
+        
+    }
+    public function loging()
+    {
+        return $this->islogin;
     }
     
 

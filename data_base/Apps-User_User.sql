@@ -24,12 +24,12 @@ USE `Apps-User`;
 DROP TABLE IF EXISTS `User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `User` (
-  `idUser` varchar(45) NOT NULL,
-  `NameUser` varchar(45) DEFAULT NULL,
+CREATE TABLE `User` (  
+  `Name` varchar(45) DEFAULT NULL,
+   `Apellido` varchar(45) DEFAULT NULL ,
   `Password` varchar(18) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idUser`)
+  PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
