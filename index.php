@@ -17,37 +17,34 @@ and open the template in the editor.
     </head>
     <body>
         <header>
+            <h1>Title web</h1>
+            <button class="c1 activ_on">Registrate</button>
+            <button class="c2">Ingresar</button>
+            <div class="regis l1"></div>
+            <div class="login l2"></div>
         </header>
-        <nav class="center-block">
-            <button class="l1 activ_on btn-warning ">ban</button>
-            <button class="l2 activ_on btn-warning ">wow</button>
-            <button class="l3 btn-warning btn">sa</button>
-            <button class="l4 btn-warning btn">ds</button>
-        </nav>
-        <section class="c1">
-            Hola 1
-        </section>
-        <section class="c2">
-            Hola 2
-        </section>
-        <section class="c3">
-            Hola 3
-        </section>
-        <section class="c4">
-            Hola 4
-        </section>
+       
+        
         <?php 
         include("APP/app.php");
-        $a=new app(5,'Registre','root','localhost','root','Apps-User');
-        $a->addinput(0, 'text', 'nombre');
-        $a->addinput(1, 'text', 'apellido');
-        $a->addinput(2, 'password', 'pass');
-        $a->addinput(3, 'password', 'pass2');
-        $a->addinput(4, 'email', 'email');
-        $a->putFormOn('body');
+        $a=new app(5,'Registre','root','localhost','1234','Apps-User');
+        $a->addinput(0, 'text', 'nombre','Nombre');
+        $a->addinput(1, 'text', 'apellido','Appellido');
+        $a->addinput(2, 'password', 'pass','Contraseña');
+        $a->addinput(3, 'password', 'pass2','Repita_la_Contraseña');
+        $a->addinput(4, 'email', 'email','Email');
+        $a->putFormOn('.regis','index.php');
+        
+        $b=new app(2, 'Ingresar', 'root', 'localhost', '1234', 'Apps-User');
+        $b->addinput(0, 'email', 'email', 'Email');
+        $b->addinput(1, 'password', 'pass', 'Contraseña');
+        $b->putFormOn('.login','index.php');
+        
+        
         ?>
     </body>
     <script>
-       
+       var a=new doc('c','l');
+       a.main();
     </script>
 </html>
