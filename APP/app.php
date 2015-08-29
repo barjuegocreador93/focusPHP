@@ -11,8 +11,9 @@
  * class app permite crear formularios e integrarlos a una base de datos ya creada!!
  * @author barc
  */
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 class app {
-    //put your code here
+    //put your code here    
     private $type;
     private $input_name;
     private $input_type;
