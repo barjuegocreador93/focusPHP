@@ -13,6 +13,7 @@
  */
 include('db_user.php');
 include ('functionsPhp.php');
+include("APP/app.php");
 
 class seccion extends functionsPhp {
     //put your code here

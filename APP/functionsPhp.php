@@ -37,7 +37,7 @@ class functionsPhp {
     {
         
          $j=""; 
-        if($jp="final"){//javascript position
+        if($jp=="final"){//javascript position
              $j.="'+'";   
         }
         if($etiquets==2){
@@ -67,5 +67,64 @@ class functionsPhp {
         
     }
     
+    public function createForm($url,$html_putform="body",$html_inputs=array(["html"=>"input","type"=>"text","name"=>""]),$method='post'){
+        
+        $i="";
+        
+            foreach($html_inputs as $a) 
+            {
+               $html="";
+               $attr=array();
+               $text="";
+               foreach($a as $b=>$c)
+               {
+                   
+                     
+                   if($b=="html"){
+                      $html=$c;
+                   }else if($b=="text")
+                   {
+                       $text=$c;
+                   }else
+                   {
+                     $attr[$b]=$c;
+                   }
+                   
+               }
+               if($html=="input"||$html=="img"||$html=="link"||$html=="meta"){
+                $i.=$this->mkjhtmlPHP($html, $attr);
+               }else{
+                $i.=$this->mkjhtmlPHP($html, $attr,$text,"frist",2);
+               }
+               
+            }       
+        $j=$this->mkjhtmlPHP("form",array("action"=>$url,"method"=>$method),$i,"frist",2);
+        $k.=$this->mkjqueryPHP($html_putform,"append",$j);
+        $this->mkjsPHP(";", $k);
+    }
+    
+    public function custom_form_register($url, $html_putfrom,$html_array=["html"=>"input","style"=>"display:none;"]){
+        $html_inputs=[
+            ["html"=>"input","type"=>"text","name"=>"nombre","placeholder"=>"Email"],
+            ["html"=>"input","type"=>"text","name"=>"apellido","placeholder"=>"Apellido"],
+            ["html"=>"input","type"=>"password","name"=>"pass","placeholder"=>"Contraseña"],
+            ["html"=>"input","type"=>"password","name"=>"pass2","placeholder"=>"Re-Contraseña"],           
+            ["html"=>"input","type"=>"email","name"=>"email","placeholder"=>"Email"],
+            ["html"=>"input","type"=>"submit"], $html_array
+            
+        ];
+        
+        $this->createForm($url, $html_putfrom, $html_inputs);
+    }
+    
+    public function custom_form_login($url, $html_putfrom,$html_array=["html"=>"input","style"=>"display:none;","value"=>""]){
+        $html_inputs=[
+            ["html"=>"input","type"=>"email","name"=>"email","placeholder"=>"Email"],
+            ["html"=>"input","type"=>"password","name"=>"pass","placeholder"=>"Contraseña"],            
+            ["html"=>"input","type"=>"submit"], $html_array            
+        ];
+        
+        $this->createForm($url, $html_putfrom, $html_inputs);
+    }
     
 }

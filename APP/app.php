@@ -13,45 +13,21 @@
  */
 include('db_user.php');
 
-class app {
+
+class app extends functionsPhp {
     //put your code here    
-    private $type;
-    private $input_name;
-    private $input_type;
-    private $numForms;
-    private $input_val;
-    
-        
+                
     private $istrylogin;
     private $istryingregis;
     private $islogin;
     
     private $user_email;
-    private $user_pass;
+    private $user_pass;   
     
-      
-    
-    public function __construct($numInpunts,$tipo_input) {
-        if ($numInpunts >= 1) {
-            $this->input_name[$numInpunts];
-            $this->input_type[$numInpunts];
-            $this->input_val[$numInpunts];
-            $this->numForms=$numInpunts;
-       
-        if($tipo_input=="Registrar"||$tipo_input=="Ingresar"){
-           $this->type = $tipo_input;
-        }
-        }
-        else
-        {
-            $this->input_name="";
-            $this->input_type="";
-            $this->input_val="";            
-            $this->type = "none";
-        }        
+    public function __construct() {       
         $this->istrylogin=$_POST['wastrylog'];
         $this->istryingregis=$_POST['wastryreg'];
-        if($this->istrylogin=="true" && $this->type=='Ingresar')
+        if($this->istrylogin=="true")
         {
             $this->islogin=$this->ingresar();
             if($this->islogin=="false")
@@ -59,46 +35,28 @@ class app {
                 echo "Intentalo de nuevo! Su usauario no aparece en nuestro sitio";
             }
         }
-        else  {$this->islogin="false";}
-        
-        
-        if($this->istryingregis=="true" && $this->type=='Registrar')
+        else  {$this->islogin="false";}        
+        if($this->istryingregis=="true" )
         {
             $this->registrar();
         }
-    }
-    
-    public function addinput($index_input,$type,$name,$val){
-        $this->input_name[$index_input]=$name;
-        $this->input_type[$index_input]=$type;
-        $this->input_val[$index_input]=$val;
-    }  
-    
-    public function putFormOn($html,$php, $bool) {
-        $this->islogin=$bool;
+    }   
+    public function putFormRegis($html, $php )
+    {
         if($this->islogin=="false"){
-        $j="<script>$(document).ready(function(){\n";        
-        $j=$j."$('$html').append('<form action='+'$php'+' method='+'post'+'></form>');\n";
-        for($i=0;$i< $this->numForms;$i++){
-            $a=$this->input_type[$i]; $b=$this->input_name[$i];  $f=$this->input_val[$i];
-            $c="<input type='+'$a'+' name='+'$b'+' placeholder='+'$f'+' >";
-        $j=$j."\t $('$html form').append('" . $c . "');\n";
+        $this->custom_form_register($php, $html,["html"=>"input","type"=>"text","name"=>"wastryreg","style"=>"display:none","value"=>"true"]);
         }
-        $m="'<input type='+'submit'+'>'";
-        $j=$j. "$('".$html. " form').append(" . $m . ");\n";
-        if($this->type=="Registrar")
-        {
-            $j=$j."$('$html form').append('<input type='+'text'+' name='+'wastryreg'+' style='+'display:none;'+' value='+'true'+'>');\n";
+        
+    }
+     public function putFormlog($html,$php)
+    {
+        if($this->islogin=="false"){
+        $this->custom_form_login($php, $html,["html"=>"input","type"=>"text","name"=>"wastrylog","style"=>"display:none","value"=>"true"]);
         }
-        else if($this->type=="Ingresar")
-        {
-             $j=$j."$('$html form').append('<input type='+'text'+' name='+'wastrylog'+' style='+'display:none;'+' value='+'true'+'>');\n";
-        }       
-        $j=$j."});\n</script>\n";
-        echo $j;}       
     }
     
-    public function registrar(){
+    
+    private function registrar(){
         $name=$_POST['nombre'];
         $lname=$_POST['apellido'];
         $pass=$_POST['pass'];
@@ -123,7 +81,7 @@ class app {
         echo "El usuario ya existe";      
         return "false";       
     }
-    public function ingresar(){
+    private function ingresar(){
            $pass=$_POST['pass']; 
            $email=$_POST['email'];
            $query="SELECT * FROM User WHERE email='$email'";
@@ -154,6 +112,3 @@ class app {
         return $this->user_pass;
     }
 }
-
-
-

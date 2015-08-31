@@ -26,34 +26,22 @@ and open the template in the editor.
                 <div class="regis l1"></div>
                 <div class="login l2"></div>
         </nav>
-       
-        
+              
         <?php 
-        include("APP/app.php");
+        
         include("APP/login.php");
         
-        $b=new app(2, 'Ingresar');//Crear un formulario para ingresar
-        $b->addinput(0, 'email', 'email', 'Email');
-        $b->addinput(1, 'password', 'pass', 'Contraseña');
-        $b->putFormOn('.login','index.php',$b->loging());       
-        
-        $a=new app(5,'Registrar');//Crear un formulario para registrar
-        $a->addinput(0, 'text', 'nombre','Nombre');
-        $a->addinput(1, 'text', 'apellido','Appellido');
-        $a->addinput(2, 'password', 'pass','Contraseña');
-        $a->addinput(3, 'password', 'pass2','Repita_la_Contraseña');
-        $a->addinput(4, 'email', 'email','Email');
-        $a->putFormOn('.regis','index.php',$b->loging());      
+        $b=new app();//Crear un formulario para ingresar
+        $b->putFormRegis(".regis", "index.php");
+        $b->putFormlog(".login", "index.php");       
         if($b->loging()=="true")
         {           
-            $x= new seccion($b->email(),$b->pass());                        
-            $b=new functionsPhp();           
-            $b->mkjsPHP(";",  $b->mkjqueryPHP("nav"));
+            $x= new seccion($b->email(),$b->pass());                      
+            $x->mkjsPHP(";",  $b->mkjqueryPHP("nav"));
             $x->redir_seccion_form("nav", "web1.php", "web1!");
             echo "Welcome ".$x->name()."!.";
         }
-        
-        
+               
         ?>
     </body>
     <script>

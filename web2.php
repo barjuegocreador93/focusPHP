@@ -25,9 +25,8 @@ and open the template in the editor.
         
         <?php       
         include("APP/login.php");
-        $a = new seccion();
+        $a=new seccion();
         $a->reconect();
-        echo "Welcome ". $a->name() ."!.";
         
         
               
