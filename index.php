@@ -17,8 +17,7 @@ and open the template in the editor.
     </head>
     <body>
         <header>
-            <h1>Title web</h1>
-            
+            <h1>FocusPHP</h1>      
             
         </header>
         <nav>

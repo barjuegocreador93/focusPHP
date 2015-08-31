@@ -21,8 +21,7 @@ and open the template in the editor.
             
             
         </header>
-        <nav></nav>
-        
+        <nav></nav>    
         
         <?php       
         include("APP/login.php");
