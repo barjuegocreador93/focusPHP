@@ -11,7 +11,8 @@
  * class app permite crear formularios e integrarlos a una base de datos ya creada!!
  * @author barc
  */
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+include('db_user.php');
+
 class app {
     //put your code here    
     private $type;
@@ -20,26 +21,17 @@ class app {
     private $numForms;
     private $input_val;
     
-    private $db_User;
-    private $db_Pass;
-    private $db_Server;
-    private $db;
         
     private $istrylogin;
     private $istryingregis;
     private $islogin;
     
+    private $user_email;
+    private $user_pass;
     
-    private function conectdatabase($server, $user, $pass, $db) {             
-       mysql_connect($server, $user, $pass) or die(mysql_error());
-       mysql_select_db($db) or die(mysql_error());
-       $this->db_Pass=$pass;
-       $this->db=$db;
-       $this->db_User=$user;
-       $this->db_Server=$server;       
-    }    
+      
     
-    public function __construct($numInpunts,$tipo_input,$user,$server,$pass,$db) {
+    public function __construct($numInpunts,$tipo_input) {
         if ($numInpunts >= 1) {
             $this->input_name[$numInpunts];
             $this->input_type[$numInpunts];
@@ -56,8 +48,7 @@ class app {
             $this->input_type="";
             $this->input_val="";            
             $this->type = "none";
-        }
-        $this->conectdatabase($server, $user, $pass, $db);
+        }        
         $this->istrylogin=$_POST['wastrylog'];
         $this->istryingregis=$_POST['wastryreg'];
         if($this->istrylogin=="true" && $this->type=='Ingresar')
@@ -118,10 +109,12 @@ class app {
         $a=  mysql_fetch_array($r);
         if($a['email']!=$email&&$email!="")
         {
+            $this->user_email=$email;
             if($pass==$pass2&&$pass!="")
             {
+                $this->user_pass=$pass;
                 $insert="insert into User values('$name','$lname','$pass','$email')";
-                mysql_query($insert);
+                mysql_query($insert);                
                 return "true";
             }
             echo "Error al registrar usuario!";
@@ -139,6 +132,8 @@ class app {
            if($a['email']==$email&&$email!=""){
            if($a['Password'] == $pass)
            {
+               $this->user_email=$email;
+               $this->user_pass=$pass;              
                return "true";
            }           
            return "false";
@@ -152,8 +147,13 @@ class app {
     {
         return $this->islogin;
     }
-    
-
+    public function  email() {
+        return $this->user_email;
+    }
+    public function  pass() {
+        return $this->user_pass;
+    }
 }
+
 
 
