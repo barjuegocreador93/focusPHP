@@ -25,9 +25,9 @@ and open the template in the editor.
         
         <?php       
         include("APP/login.php");
-        $a=new seccion();
-        $a->reconect();
-        $a->createForm("index.php","nav",[["html"=>"button","text"=>"salir"]]);
+        $a=new functionsPhp();
+        echo $a->array_jhtmlPHP(["html"=>"h1","text"=>"hola"]);
+        
         
         
               
