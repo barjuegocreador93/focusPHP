@@ -112,7 +112,7 @@ class functionsPhp {
     
     public function custom_form_register($url, $html_putfrom,$html_array=["html"=>"input","style"=>"display:none;"]){
         $html_inputs=[
-            ["html"=>"input","type"=>"text","name"=>"nombre","placeholder"=>"Email"],
+            ["html"=>"input","type"=>"text","name"=>"nombre","placeholder"=>"Nombre"],
             ["html"=>"input","type"=>"text","name"=>"apellido","placeholder"=>"Apellido"],
             ["html"=>"input","type"=>"password","name"=>"pass","placeholder"=>"Contraseña"],
             ["html"=>"input","type"=>"password","name"=>"pass2","placeholder"=>"Re-Contraseña"],           
