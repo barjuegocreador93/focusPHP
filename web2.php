@@ -27,6 +27,7 @@ and open the template in the editor.
         include("APP/login.php");
         $a=new seccion();
         $a->reconect();
+        $a->createForm("index.php","nav",[["html"=>"button","text"=>"salir"]]);
         
         
               

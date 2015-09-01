@@ -1,11 +1,9 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  * Description of functionsPhp
  *
@@ -16,7 +14,6 @@ class functionsPhp {
     public function __construct() {
         
     }
-
     public function mkjsPHP($scrp1 = ";",$jquery= ";",$scrp2 = ";")
     {
             $j="<script>";
@@ -66,44 +63,38 @@ class functionsPhp {
         }
         
     }
-    public function array_jhtmlPHP($array=[]) {
-        $i = "";
-        $attr = null;
-        $html = null;
-        $text = null;
-        if (is_array($array)) {
-            foreach ($array as $a => $x) {
-                if (is_array($array[$a])) {
-                    $i.=$this->array_jhtmlPHP($array[$a]);
-                } else {
-
-                    switch ($a) {
-                        case "attr": $attr = $x;
-                            break;
-                        case "html": $html = $x;
-                            break;
-                        case "text": $text = $this->array_jhtmlPHP($x);
-                            break;
-                        default: $attr[$a] = $x;
-                    }
-                }
-            }
-            if ($html == "input" || $html == "img" || $html == "link" || $html == "meta") {
-                $i.=$this->mkjhtmlPHP($html, $attr);
-            } else if ($attr != null && $html != null && $text != null) {
-                $i.=$this->mkjhtmlPHP($html, $attr, $text, "frist", 2);
-            }
-        } else {
-            $i = $array;
-        }
-        return $i;
-    }
-    
-    
     
     public function createForm($url,$html_putform="body",$html_inputs=array(["html"=>"input","type"=>"text","name"=>""]),$method='post'){
         
-        $i=  $this->array_jhtmlPHP($html_inputs);     
+        $i="";
+        
+            foreach($html_inputs as $a) 
+            {
+               $html="";
+               $attr=array();
+               $text="";
+               foreach($a as $b=>$c)
+               {
+                   
+                     
+                   if($b=="html"){
+                      $html=$c;
+                   }else if($b=="text")
+                   {
+                       $text=$c;
+                   }else
+                   {
+                     $attr[$b]=$c;
+                   }
+                   
+               }
+               if($html=="input"||$html=="img"||$html=="link"||$html=="meta"){
+                $i.=$this->mkjhtmlPHP($html, $attr);
+               }else{
+                $i.=$this->mkjhtmlPHP($html, $attr,$text,"frist",2);
+               }
+               
+            }       
         $j=$this->mkjhtmlPHP("form",array("action"=>$url,"method"=>$method),$i,"frist",2);
         $k.=$this->mkjqueryPHP($html_putform,"append",$j);
         $this->mkjsPHP(";", $k);
