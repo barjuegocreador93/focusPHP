@@ -12,61 +12,62 @@
  * @author barc
  */
 class functionsPhp {
+
     //put your code here
     public function __construct() {
         
     }
 
-    public function mkjsPHP($scrp1 = ";",$jquery= ";",$scrp2 = ";")
-    {
-            $j="<script>";
-            $j.=$scrp1;
-            $j.="$(document).ready(function(){";
-            $j.=$jquery;
-            $j.="});";
-            $j.=$scrp2;
-            $j.="</script>";
-            echo $j;
+    public function mkjsPHP($scrp1 = ";", $jquery = ";", $scrp2 = ";") {
+        $j = "<script>";
+        $j.=$scrp1;
+        $j.="$(document).ready(function(){";
+        $j.=$jquery;
+        $j.="});";
+        $j.=$scrp2;
+        $j.="</script>";
+        echo $j;
     }
-    
-    public function mkjqueryPHP($html,$method='empty',$jquery='')
-    {
+
+    public function mkjqueryPHP($html, $method = 'empty', $jquery = '') {
+        if ($jquery == '') {
+            return "$('$html').$method();";
+        }
         return "$('$html').$method('$jquery');";
     }
-    public function mkjhtmlPHP($html, $attr= array("class"=>""),$text='', $jp="first",$etiquets=1)
-    {
-        
-         $j=""; 
-        if($jp=="final"){//javascript position
-             $j.="'+'";   
+
+    public function mkjhtmlPHP($html, $attr = array("class" => ""), $text = '', $jp = "first", $etiquets = 1) {
+
+        $j = "";
+        if ($jp == "final") {//javascript position
+            $j.="'+'";
         }
-        if($etiquets==2){
-            
-            
+        if ($etiquets == 2) {
+
+
             $j.="<$html ";
-            foreach($attr as $i=>$k)
-            {
-              $j.=" $i='+'$k'+'";  
+            if (is_array($attr)) {
+                foreach ($attr as $i => $k) {
+                    $j.=" $i='+'$k'+'";
+                }
             }
             $j.=">$text</$html>";
-           
-            
-            
+
+
+
             return $j;
-        }else
-        if($etiquets==1)
-        {
-            $j="<$html ";
-            foreach($attr as $i=>$k)
-            {
-              $j.=" $i='+'$k'+'";  
+        } else
+        if ($etiquets == 1) {
+            $j = "<$html ";
+            foreach ($attr as $i => $k) {
+                $j.=" $i='+'$k'+'";
             }
             $j.=">";
-            return $j;  
+            return $j;
         }
-        
     }
-    public function array_jhtmlPHP($array=[]) {
+
+    public function array_jhtmlPHP($array = []) {
         $i = "";
         $attr = null;
         $html = null;
@@ -76,16 +77,16 @@ class functionsPhp {
                 if (is_array($a)) {
                     $i.=$this->array_jhtmlPHP($a);
                 } else {
-                    foreach ($array as $a=>$x){
-                    switch ($a) {
-                        case "attr": $attr = $x;
-                            break;
-                        case "html": $html = $x;
-                            break;
-                        case "text": $text = $this->array_jhtmlPHP($x);
-                            break;
-                        default: $attr[$a] = $x;
-                    }
+                    foreach ($array as $a => $x) {
+                        switch ($a) {
+                            case "attr": $attr = $x;
+                                break;
+                            case "html": $html = $x;
+                                break;
+                            case "text": $text = $this->array_jhtmlPHP($x);
+                                break;
+                            default: $attr[$a] = $x;
+                        }
                     }
                 }
             }
@@ -99,39 +100,36 @@ class functionsPhp {
         }
         return $i;
     }
-    
-    
-    
-    public function createForm($url,$html_putform="body",$html_inputs=array(["html"=>"input","type"=>"text","name"=>""]),$method='post'){
-        
-        $i=  $this->array_jhtmlPHP($html_inputs);     
-        $j=$this->mkjhtmlPHP("form",array("action"=>$url,"method"=>$method),$i,"frist",2);
-        $k.=$this->mkjqueryPHP($html_putform,"append",$j);
+
+    public function createForm($url, $html_putform = "body", $html_inputs = array(["html" => "input", "type" => "text", "name" => ""]), $method = 'post') {
+
+        $i = $this->array_jhtmlPHP($html_inputs);
+        $j = $this->mkjhtmlPHP("form", array("action" => $url, "method" => $method), $i, "frist", 2);
+        $k.=$this->mkjqueryPHP($html_putform, "append", $j);
         $this->mkjsPHP(";", $k);
     }
-    
-    public function custom_form_register($url, $html_putfrom,$html_array=["html"=>"input","style"=>"display:none;"]){
-        $html_inputs=[
-            ["html"=>"input","type"=>"text","name"=>"nombre","placeholder"=>"Nombre"],
-            ["html"=>"input","type"=>"text","name"=>"apellido","placeholder"=>"Apellido"],
-            ["html"=>"input","type"=>"password","name"=>"pass","placeholder"=>"Contraseña"],
-            ["html"=>"input","type"=>"password","name"=>"pass2","placeholder"=>"Re-Contraseña"],           
-            ["html"=>"input","type"=>"email","name"=>"email","placeholder"=>"Email"],
-            ["html"=>"input","type"=>"submit"], $html_array
-            
+
+    public function custom_form_register($url, $html_putfrom, $html_array = ["html" => "input", "style" => "display:none;"]) {
+        $html_inputs = [
+            ["html" => "input", "type" => "text", "name" => "nombre", "placeholder" => "Nombre"],
+            ["html" => "input", "type" => "text", "name" => "apellido", "placeholder" => "Apellido"],
+            ["html" => "input", "type" => "password", "name" => "pass", "placeholder" => "Contraseña"],
+            ["html" => "input", "type" => "password", "name" => "pass2", "placeholder" => "Re-Contraseña"],
+            ["html" => "input", "type" => "email", "name" => "email", "placeholder" => "Email"],
+            ["html" => "input", "type" => "submit"], $html_array
         ];
-        
+
         $this->createForm($url, $html_putfrom, $html_inputs);
     }
-    
-    public function custom_form_login($url, $html_putfrom,$html_array=["html"=>"input","style"=>"display:none;","value"=>""]){
-        $html_inputs=[
-            ["html"=>"input","type"=>"email","name"=>"email","placeholder"=>"Email"],
-            ["html"=>"input","type"=>"password","name"=>"pass","placeholder"=>"Contraseña"],            
-            ["html"=>"input","type"=>"submit"], $html_array            
+
+    public function custom_form_login($url, $html_putfrom, $html_array = ["html" => "input", "style" => "display:none;", "value" => ""]) {
+        $html_inputs = [
+            ["html" => "input", "type" => "email", "name" => "email", "placeholder" => "Email"],
+            ["html" => "input", "type" => "password", "name" => "pass", "placeholder" => "Contraseña"],
+            ["html" => "input", "type" => "submit"], $html_array
         ];
-        
+
         $this->createForm($url, $html_putfrom, $html_inputs);
     }
-    
+
 }

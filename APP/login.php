@@ -55,13 +55,20 @@ class seccion extends functionsPhp {
         $this->user_lname=$user['Apellido'];
     }    
     
-    public function redir_seccion($php, $metodo)
+    public function redir_seccion($php, $metodo,$id)
     {
+        $email=$this->user_email;
+        $pass=$this->user_pass;
         if($metodo=="get"){
             $this->get($php, "user_email=$this->user_email&&user_pass=$this->user_pass");
         }
         if($metodo=="post"){
-           $this->post($php, "user_email=$this->user_email&&user_pass=$this->user_pass");            
+           $this->createForm($php, "body", [
+    ["html"=>"input","type"=>"text", "name"=>"user_email","style"=>"display:none;", "value"=>"$email"],
+    ["html"=>"input","type"=>"password", "name"=>"user_pass","style"=>"display:none;", "value"=>"$pass"],
+               ["html"=>"button","class"=>"$php$metodo$id"]                   
+                   ]);
+           $this->mkjsPHP("",$this->mkjqueryPHP(".$php$metodo$id","click"));
         }           
             
         if($metodo=="none")
