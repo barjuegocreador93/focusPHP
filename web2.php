@@ -25,8 +25,7 @@ and open the template in the editor.
         
         <?php       
         include("APP/login.php");
-        $a=new functionsPhp();
-        echo $a->array_jhtmlPHP([["html"=>"h1","text"=>"hola"]]);
+        $a=new functionsPhp();        
         
         
         
