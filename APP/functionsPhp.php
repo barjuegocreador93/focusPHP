@@ -43,19 +43,14 @@ class functionsPhp {
             $j.="'+'";
         }
         if ($etiquets == 2) {
-
-
             $j.="<$html ";
             if (is_array($attr)) {
                 foreach ($attr as $i => $k) {
                     $j.=" $i='+'$k'+'";
                 }
             }
-            $mk=$this->array_jhtmlPHP($text);
+            $mk = $this->array_jhtmlPHP($text);
             $j.=">$mk</$html>";
-
-
-
             return $j;
         } else
         if ($etiquets == 1) {
@@ -70,40 +65,37 @@ class functionsPhp {
 
     public function array_jhtmlPHP($array = []) {
         $i = "";
-        $xz=0;
-        $xm=0;
         $attr = null;
         $html = null;
         $text = null;
-        $type=0;
+        $type = 0;
         if (is_array($array)) {
             foreach ($array as $a) {
                 if (is_array($a)) {
                     $i.=$this->array_jhtmlPHP($a);
-                  $type=1;                
+                    $type = 1;
                 }
-                
             }
-            if($type==0){
-            foreach ($array as $a => $x) {
-                        switch ($a) {
-                            case "attr": $attr = $x;
-                                break;
-                            case "html": $html = $x;
-                                break;
-                            case "text": $text = $x;                                
-                                break;
-                            default: $attr[$a] = $x;
+            if ($type == 0) {
+                foreach ($array as $a => $x) {
+                    switch ($a) {
+                        case "attr": $attr = $x;
+                            break;
+                        case "html": $html = $x;
+                            break;
+                        case "text": $text = $x;
+                            break;
+                        default: $attr[$a] = $x;
+                    }
                 }
-             }
-            
-            
-            if ($html == "input" || $html == "img" || $html == "link" || $html == "meta") {
-                $i.=$this->mkjhtmlPHP($html, $attr);
-            } else if ($attr != null || $html != null || $text != null) {
-                $i.=$this->mkjhtmlPHP($html, $attr, $text, "frist", 2);
+
+                if ($html == "input" || $html == "img" || $html == "link" || $html == "meta") {
+                    $i.=$this->mkjhtmlPHP($html, $attr);
+                } else if ($attr != null || $html != null || $text != null) {
+                    $i.=$this->mkjhtmlPHP($html, $attr, $text, "frist", 2);
+                }
             }
-            }} else {
+        } else {
             $i = $array;
         }
         return $i;

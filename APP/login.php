@@ -20,8 +20,7 @@ class seccion extends functionsPhp {
     private $user_email;
     private $user_pass;
     private $user_name;
-    private $user_lname;
-    private $login;    
+    private $user_lname;      
     
     public function __construct($user_email = null, $user_pass=null ) {
         $this->user_email=$user_email;
