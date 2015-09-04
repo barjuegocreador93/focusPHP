@@ -45,7 +45,7 @@ and open the template in the editor.
         ?>
     </body>
     <script>
-       var a=new doc('c','l');
-       a.main();
+       var a=new fast_appi('c','l');
+       a.run();
     </script>
 </html>

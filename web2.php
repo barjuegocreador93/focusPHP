@@ -25,7 +25,8 @@ and open the template in the editor.
         
         <?php       
         include("APP/login.php");
-        $a=new functionsPhp();        
+        $a=new functionsPhp();
+        echo $a->array_jhtmlPHP([["html"=>"h1","text"=>"hola"]]);
         
         
         
@@ -33,8 +34,8 @@ and open the template in the editor.
         ?>
     </body>
     <script>
-       var a=new doc('c','l');
-       a.main();
+       var a=new fast_appi('c','l');
+       a.run();
     </script>
 </html>
 
