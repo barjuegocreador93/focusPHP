@@ -8,13 +8,15 @@ function isReady(html)
 }
 function ob(activ,slave,nactiv,cactiv,nslave)
 {
-   if(isReady(activ))
+  
    {
    $(activ).click(function(){
               for(var x=1;isReady(nactiv+x+"")||isJQ(nactiv+x+"",":not(:visible)");x++)
               {
-                  $(nactiv+x+"").fadeIn();
-                  if((nactiv+x+"")!==cactiv)$(nslave+x+"").slideUp();
+                  if ((nactiv + x + "") !== cactiv) {
+                    $(nactiv + x + "").fadeIn();
+                    $(nslave + x + "").slideUp();
+                }
               }
               $(slave).slideDown();
               $(this).hide();
@@ -48,7 +50,7 @@ function fast_appi(activ,slave)
        var nactiv="."+this.activ;
        var nslave="."+this.slave;
        
-      for(var i=1;isReady("."+this.activ+i+"");i++)
+      for(var i=1;isReady("."+this.activ+i+"")||isJQ("."+this.activ+i+"",":not(:visible)");i++)
       {
           
           var cactiv="."+this.activ+i+"";
