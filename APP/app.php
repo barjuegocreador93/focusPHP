@@ -11,7 +11,7 @@
  * class app permite crear formularios e integrarlos a una base de datos ya creada!!
  * @author barc
  */
-include('db_user.php');
+
 
 
 class app extends functionsPhp {
