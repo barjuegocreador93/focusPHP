@@ -18,3 +18,6 @@
 > functionPhp es un objeto de php que tiene muchas funcionalidades integradas a html y js con jquery. [vease](https://github.com/barjuegocreador93/focusPHP/wiki/functionsPhp)
 
 
+## app 
+
+> _La puerta de la aplicación_ es quien ayuda a controlar el ingreso y regitro de un usuario a la app web. [vease](https://github.com/barjuegocreador93/focusPHP/wiki/app) 
