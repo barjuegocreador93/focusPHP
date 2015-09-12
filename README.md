@@ -1,5 +1,7 @@
 # focusPHP
 
+>Haz una app, crea elementos de html o js con las variables de php y habla un solo lenguaje!.
+
 ***
 ## Source
 1. [APP](https://github.com/barjuegocreador93/focusPHP/tree/master/APP)
