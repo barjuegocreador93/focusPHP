@@ -24,7 +24,13 @@ class app extends functionsPhp {
     private $user_email;
     private $user_pass;   
     
-    public function __construct() {       
+    private $tableUser_campos;
+    private $tableUser_name;
+    
+    
+    public function __construct($tableUser_name,$tableUser_campos) {
+        $this->tableUser_campos=$tableUser_campos;
+        $this->tableUser_name=$tableUser_name;
         $this->istrylogin=$_POST['wastrylog'];
         $this->istryingregis=$_POST['wastryreg'];
         if($this->istrylogin=="true")
@@ -72,7 +78,10 @@ class app extends functionsPhp {
             {
                 $this->user_pass=$pass;
                 $insert="insert into User values('$name','$lname','$pass','$email')";
-                mysql_query($insert);                
+                mysql_query($insert);
+                $a=new AppsUser();
+                $nametable=$this->user_email."_".$this->tableUser_name;
+                $a->create_table($nametable,$this->tableUser_campos);
                 return "true";
             }
             echo "Error al registrar usuario!";

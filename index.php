@@ -31,7 +31,8 @@ and open the template in the editor.
         
         include("APP/login.php");
         
-        $b=new app();//Crear un formulario para ingresar
+        $b=new app("Amigos","email varchar(100) COLLATE utf8_spanish_ci NOT NULL,"
+                . "PRIMARY KEY (email)");//Crear un formulario para ingresar
         $b->putFormRegis(".regis", "index.php");
         $b->putFormlog(".login", "index.php");       
         if($b->loging()=="true")
