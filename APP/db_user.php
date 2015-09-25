@@ -13,7 +13,7 @@
  */
 $ms_server="localhost";
 $ms_user="root";
-$ms_password="root";
+$ms_password="";
 
 mysql_connect($ms_server, $ms_user, $ms_password) or die(mysql_error());
 mysql_select_db('Apps-User') or die(mysql_error()); 
